@@ -1,3 +1,5 @@
+import math
+
 ##############
 # NODE CLASS #
 ##############
@@ -13,7 +15,17 @@ class Node:
         self.lat = lat
 
     def distance(self, other):
-        pass
+        R = 6371
+        dLat = math.radians(self.lat, other.lat)
+        dLong = math.radians(self.long, other.long)
+        a = (
+            math.sin(dLat/2) * math.sin(dLat/2) +
+            math.cos(math.radians(self.lat)) * math.cos(math.radians(other.lat)) *
+            math.sin(dLong/2) * math.sin(dLong/2)
+        )
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
+        d = R * c
+        return d
 
 #############
 # BACA FILE #
